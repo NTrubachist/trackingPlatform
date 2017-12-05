@@ -5,19 +5,15 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
-class Client extends Model
+class Order extends Model
 {
-    //
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
 
 
-    public function orders()
+    public function user()
     {
-        return $this->hasMany('App\Order', 'client_id');
+        return $this->belongsTo('App\Client');
     }
-
-
 }

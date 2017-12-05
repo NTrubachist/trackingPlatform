@@ -16,6 +16,12 @@
   background-color: #24924e;
 }
 
+.notification {
+  background-color: #27ae60;
+  border-color: #24924e;
+  color: #f5f8fa;
+}
+
 header {
   background-color: #27ae60;
 }

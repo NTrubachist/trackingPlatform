@@ -14,7 +14,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        //index file in HomeController
     }
 
     /**
@@ -24,7 +24,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return view('clients.create');
     }
 
     /**
@@ -35,7 +35,20 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:clients',
+            'register_number' => 'required|string|max:255'
+        ]);
+        $client = new Client();
+        $inputs = $request->except(['_token', '_method']);
+        foreach ($inputs as $key=>$input)
+        {
+            $client->{$key} = $input;
+        }
+        $client->save();
+        return redirect()->route('home')->with(['message' => 'Klients izveidots veiksmīgi!']);
     }
 
     /**
@@ -57,7 +70,7 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+        return view('clients.edit', compact('client'));
     }
 
     /**
@@ -69,7 +82,19 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'register_number' => 'required|string|max:255'
+        ]);
+        $inputs = $request->except(['_token', '_method']);
+        foreach ($inputs as $key=>$input)
+        {
+            $client->{$key} = $input;
+        }
+        $client->save();
+        return redirect()->route('home')->with(['message' => 'Klients rediģēts veiksmīgi!']);
     }
 
     /**
@@ -80,7 +105,8 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+        return redirect()->route('home')->with(['message' => 'Klients veiksmīgi izdēsts!']);
     }
 
     protected function validator(array $data)
