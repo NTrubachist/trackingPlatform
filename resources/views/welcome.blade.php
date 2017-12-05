@@ -3,6 +3,13 @@
 
 @section('styles')
     <style>
+        #logo
+        {
+            height: 200px;
+            margin-top:7%;
+            margin-bottom: 3%;
+        }
+
         html, body {
             background-color: #27ae60;
             color: #f5f8fa;
@@ -38,11 +45,9 @@
 @endsection
 
 @section('content')
-
-
     <div class="content">
-
         <div class="title m-b-md">
+
             Klientu uzskaites platforma
         </div>
 
