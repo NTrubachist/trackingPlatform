@@ -1,0 +1,147 @@
+
+$text-button: #f5f8fa;
+$lig-green-color: #27ae60;
+$drk-green-color: #24924e;
+$lig-orange: #daa720;
+$drk-orange: #ba8a20;
+
+
+
+.panel{
+  margin:30px;
+  background-color: $drk-green-color !important;
+  color: $text-button;
+}
+
+.panel-body{
+  color: $text-button;
+  background-color: $drk-green-color;
+}
+
+.panel-heading{
+  color: $text-button !important;
+  background-color: $drk-green-color;
+}
+
+header
+{
+  background-color: $lig-green-color;
+
+  .navbar-brand
+  {
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+
+  .navbar{
+    margin-bottom: 0px;
+    border-bottom: 0px;
+  }
+
+  .navbar-default .navbar-nav > li > a
+  {
+    color: $text-button;
+    text-transform: uppercase;
+  }
+
+  .navbar-collapse.in
+  {
+    overflow-y: hidden;
+  }
+
+  .navbar-default .navbar-nav > li > a:hover
+  {
+    color: $text-button;
+  }
+
+  .navbar-default .navbar-brand
+  {
+    color: $text-button;
+  }
+
+  .navbar-default .navbar-toggle .icon-bar
+  {
+    background-color: $drk-green-color;
+  }
+
+}
+
+.btn
+{
+  margin: 10px 5px;
+  &.btn-orange
+  {
+    background-color: $lig-orange;
+    color: $text-button;
+
+    &:link,
+    &:visited
+    {
+      background-color: $lig-orange;
+    }
+
+    &:hover
+    {
+      background-color: $drk-orange;
+      border-color: $drk-orange;
+      color:$text-button;
+    }
+
+    &:active{
+      background-color: $drk-orange;
+      border-color: $drk-orange;
+      color:$text-button;
+    }
+  }
+  &.btn-link
+  {
+    color: $lig-orange;
+
+    &:link,
+
+
+    &:hover
+    {
+      color:$drk-orange;
+    }
+
+    &:active{
+      color:$drk-orange;
+    }
+  }
+}
+
+.sliding-middle-out
+{
+  display: inline-block;
+  position: relative;
+  padding-bottom: 3px;
+  margin:15px;
+  color: $text-button;
+
+  &:link,
+  &:visited,
+  &:link
+  {
+    color:$text-button;
+    text-decoration: none;
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    margin: auto;
+    height: 3px;
+    width: 0px;
+    background: transparent;
+    transition: width .5s ease, background-color .5s ease;
+  }
+
+  &:hover:after {
+    width: 75%;
+    background: #1c7239;
+    border-radius: 2px;
+  }
+
+}
+
