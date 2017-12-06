@@ -1,5 +1,10 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);@charset "UTF-8";
 
+hr {
+  border-top: 1px solid #1e8449 !important;
+  margin: 5px 0 0 0 !important;
+}
+
 .panel {
   margin: 30px;
   background-color: #24924e !important;

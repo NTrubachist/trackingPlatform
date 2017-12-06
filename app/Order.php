@@ -12,7 +12,7 @@ class Order extends Model
     protected $dates = ['deleted_at'];
 
 
-    public function user()
+    public function client()
     {
         return $this->belongsTo('App\Client');
     }

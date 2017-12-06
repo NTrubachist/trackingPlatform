@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
 use App\Order;
 use Illuminate\Http\Request;
 
@@ -23,9 +24,10 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('orders.create');
+        $client = Client::findOrFail($request->client);
+        return view('orders.create', compact('client'));
     }
 
     /**
@@ -36,19 +38,21 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $client = Client::findOrFail($request->client);
         $this->validate($request,[
             'name' => 'required|string|max:255',
             'describe' => 'required|string|max:255',
             'price' => 'required|integer|min:0'
         ]);
         $order = new Order();
-        $inputs = $request->except(['_token', '_method']);
+        $inputs = $request->except(['_token', 'client']);
         foreach ($inputs as $key=>$input)
         {
             $order->{$key} = $input;
         }
+        $order->client()->associate($client);
         $order->save();
-        return redirect()->route('home')->with(['message' => 'Klients izveidots veiksmīgi!']);
+        return redirect()->route('clients.edit', compact('client'))->with(['message' => 'Pasūtījums izveidots veiksmīgi!']);
     }
 
     /**
@@ -68,9 +72,9 @@ class OrderController extends Controller
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function edit(Order $order)
+    public function edit(Order $order, Client $client)
     {
-        //
+        return view('orders.edit', compact('order', 'client'));
     }
 
     /**
@@ -82,7 +86,22 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+
+        $this->validate($request,[
+            'name' => 'required|string|max:255',
+            'describe' => 'required|string|max:255',
+            'price' => 'required|integer|min:0'
+        ]);
+        $inputs = $request->except(['_token', '_method', 'client']);
+        foreach ($inputs as $key=>$input)
+        {
+            $order->{$key} = $input;
+        }
+
+        $order->client_id = $client = $order->client->id;
+        $order->save();
+
+        return redirect()->route('clients.edit', compact('client'))->with(['message' => 'Pasūtījums rediģēts veiksmīgi!']);
     }
 
     /**
@@ -93,6 +112,8 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        $order->delete();
+        $client = $order->client->id;
+        return redirect()->route('clients.edit', compact('client'))->with(['message' => 'Pasūtījums veiksmīgi izdzēsts!']);
     }
 }
